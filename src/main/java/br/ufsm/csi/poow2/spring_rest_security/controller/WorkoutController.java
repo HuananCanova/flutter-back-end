@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
-@RequestMapping("/workout")
 @CrossOrigin(origins = "*")
 public interface WorkoutController {
     String testWorkout();
 
-    ArrayList<Workout> listWorkouts();
+    List<Workout> listWorkouts();
 }

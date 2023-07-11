@@ -8,6 +8,10 @@ public class Workout {
     //private WorkoutStrategy strategy;
 
 
+    public Workout(List<Exercise> exercises) {
+        this.exercises = exercises;
+    }
+
     public Workout(String title, List<Exercise> exercises) {
         this.title = title;
         this.exercises = exercises;

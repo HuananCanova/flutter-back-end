@@ -1,12 +1,14 @@
 package br.ufsm.csi.poow2.spring_rest_security.controller;
 import br.ufsm.csi.poow2.spring_rest_security.dao.WorkoutDAO;
+import br.ufsm.csi.poow2.spring_rest_security.model.Workout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import br.ufsm.csi.poow2.spring_rest_security.model.Workout;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import java.util.List;
 
+@RestController
 public class WorkoutControllerImpl implements WorkoutController {
     private static final Logger logger = LoggerFactory.getLogger(WorkoutControllerImpl.class);
     private final WorkoutDAO workoutDAO;
@@ -14,7 +16,6 @@ public class WorkoutControllerImpl implements WorkoutController {
     public WorkoutControllerImpl(WorkoutDAO workoutDAO) {
         this.workoutDAO = workoutDAO;
     }
-
     @Override
     @GetMapping("/list")
     public String testWorkout() {
@@ -23,8 +24,8 @@ public class WorkoutControllerImpl implements WorkoutController {
 
     @Override
     @GetMapping("/workouts")
-    public ArrayList<Workout> listWorkouts() {
-        return null;
+    public List<Workout> listWorkouts() {
+        return workoutDAO.getWorkouts();
     }
 
     public abstract class WorkoutControllerDecorator implements WorkoutController {
@@ -41,7 +42,7 @@ public class WorkoutControllerImpl implements WorkoutController {
         }
 
         @Override
-        public ArrayList<Workout> listWorkouts() {
+        public List<Workout> listWorkouts() {
             logger.info("Accessed /workout/workouts endpoint");
             return workoutController.listWorkouts();
         }
@@ -61,7 +62,7 @@ public class WorkoutControllerImpl implements WorkoutController {
         }
 
         @Override
-        public ArrayList<Workout> listWorkouts() {
+        public List<Workout> listWorkouts() {
             logger.info("Logging request to /workout/workouts endpoint");
             return super.listWorkouts();
         }
