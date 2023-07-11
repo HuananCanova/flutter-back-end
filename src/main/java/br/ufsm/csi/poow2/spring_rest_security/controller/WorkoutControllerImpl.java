@@ -1,4 +1,5 @@
 package br.ufsm.csi.poow2.spring_rest_security.controller;
+
 import br.ufsm.csi.poow2.spring_rest_security.dao.WorkoutDAO;
 import br.ufsm.csi.poow2.spring_rest_security.model.Workout;
 import org.slf4j.Logger;
@@ -6,65 +7,38 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class WorkoutControllerImpl implements WorkoutController {
     private static final Logger logger = LoggerFactory.getLogger(WorkoutControllerImpl.class);
     private final WorkoutDAO workoutDAO;
+    private List<LogObserver> logObservers;
 
     public WorkoutControllerImpl(WorkoutDAO workoutDAO) {
         this.workoutDAO = workoutDAO;
-    }
-    @Override
-    @GetMapping("/list")
-    public String testWorkout() {
-        return "feito list workout";
+        this.logObservers = new ArrayList<>(); // Inicializar a lista logObservers
     }
 
     @Override
-    @GetMapping("/workouts")
+    @GetMapping("/workouts/list")
     public List<Workout> listWorkouts() {
+        logger.info("Accessed /workout/workouts endpoint");
         return workoutDAO.getWorkouts();
     }
 
-    public abstract class WorkoutControllerDecorator implements WorkoutController {
-        protected WorkoutController workoutController;
-
-        public WorkoutControllerDecorator(WorkoutController workoutController) {
-            this.workoutController = workoutController;
-        }
-
-        @Override
-        public String testWorkout() {
-            logger.info("Accessed /workout/list endpoint");
-            return workoutController.testWorkout();
-        }
-
-        @Override
-        public List<Workout> listWorkouts() {
-            logger.info("Accessed /workout/workouts endpoint");
-            return workoutController.listWorkouts();
-        }
+    public void registerLogObserver(LogObserver observer) {
+        logObservers.add(observer);
     }
 
-    public class LoggingWorkoutControllerDecorator extends WorkoutControllerDecorator {
-        private static final Logger logger = LoggerFactory.getLogger(LoggingWorkoutControllerDecorator.class);
+    public void removeLogObserver(LogObserver observer) {
+        logObservers.remove(observer);
+    }
 
-        public LoggingWorkoutControllerDecorator(WorkoutController workoutController) {
-            super(workoutController);
-        }
-
-        @Override
-        public String testWorkout() {
-            logger.info("Logging request to /workout/list endpoint");
-            return super.testWorkout();
-        }
-
-        @Override
-        public List<Workout> listWorkouts() {
-            logger.info("Logging request to /workout/workouts endpoint");
-            return super.listWorkouts();
+    private void notifyLogObservers(String logMessage) {
+        for (LogObserver observer : logObservers) {
+            observer.updateLog(logMessage);
         }
     }
 }
