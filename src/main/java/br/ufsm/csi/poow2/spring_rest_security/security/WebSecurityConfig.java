@@ -55,32 +55,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-    @Bean
-    public FiltroAutenticacao filtroAutenticacao() throws Exception{
-        return new FiltroAutenticacao();
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and()
-        //        http
-        .csrf().disable()
+                //        http
+                .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-              //  .authenticationProvider(this.authProvider())
+                //  .authenticationProvider(this.authProvider())
                 .authorizeHttpRequests()
                 .antMatchers(HttpMethod.GET, "/").permitAll()
                 .antMatchers(HttpMethod.GET, "/teste").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/workout/list").hasAuthority("ADMIN")
-                //.antMatchers(HttpMethod.GET,"/cliente").hasAuthority("USER")
-                //.antMatchers(HttpMethod.GET, "/cliente/clientes").hasAuthority("USER_PIETRA");
-                .antMatchers(HttpMethod.GET,"/cliente/cliente").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.POST,"/cliente/cadastrar").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/exercise/list").permitAll()
+                .antMatchers(HttpMethod.POST, "/workout/save").permitAll()
                 .antMatchers(HttpMethod.GET, "/cliente/clientes").hasAnyAuthority("USER", "ADMIN");
-               // .antMatchers(HttpMethod.GET, "/cliente/clientes").hasAuthority("USER");
-              //  .and().formLogin();
+        // .antMatchers(HttpMethod.GET, "/cliente/clientes").hasAuthority("USER");
+        //  .and().formLogin();
 
-            http.addFilterBefore(this.filtroAutenticacao(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(this.filtroAutenticacao(), UsernamePasswordAuthenticationFilter.class);
 
     }
     @Bean
@@ -96,6 +88,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", config);
 
         return new CorsFilter(source);
+    }
+
+    @Bean
+    public FiltroAutenticacao filtroAutenticacao() throws Exception{
+        return new FiltroAutenticacao();
     }
 
 

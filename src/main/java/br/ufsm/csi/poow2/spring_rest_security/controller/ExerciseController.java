@@ -14,9 +14,10 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class ExerciseController {
     ExerciseDAO exerciseDAO = new ExerciseDAO();
-    @GetMapping()
+
+    @GetMapping("/list")
     public List<Exercise> listExercise() {
-        return exerciseDAO.getExerciseList();
+        return exerciseDAO.getAllExercises();
     }
 
 }

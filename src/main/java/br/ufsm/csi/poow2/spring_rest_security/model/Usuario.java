@@ -6,7 +6,6 @@ public class Usuario {
     private String senha;
     private String permissao;
 
-
     private String token;
     public String getToken() {
         return token;
@@ -16,10 +15,15 @@ public class Usuario {
         this.token = token;
     }
 
+    public Usuario() {
+        this.permissao = "USER";
+    }
 
-
-
-
+    public Usuario(String login, String senha) {
+        this.login = login;
+        this.senha = senha;
+        this.permissao = "USER";
+    }
 
     public Usuario(String login, String senha, String permissao) {
         this.login = login;

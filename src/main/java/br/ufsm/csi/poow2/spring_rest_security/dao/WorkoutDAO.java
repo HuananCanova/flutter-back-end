@@ -12,30 +12,15 @@ public class WorkoutDAO {
     private static List<Workout> workouts = new ArrayList<>();
     private static ExerciseDAO exerciseDAO = new ExerciseDAO();
 
-
-    static {
-        // Criação dos workouts com título e exercícios selecionados
-        Workout workout1 = new Workout("Workout 1", exerciseDAO.getExerciseList());
-        Workout workout2 = new Workout("Workout 2", exerciseDAO.getExerciseList());
-        Workout workout3 = new Workout("Workout 3", exerciseDAO.getExerciseList());
-        Workout workout4 = new Workout("Workout 4", exerciseDAO.getExerciseList());
-        Workout workout5 = new Workout("Workout 5", exerciseDAO.getExerciseList());
-
-        // Adição dos workouts na lista
-        workouts.add(workout1);
-        workouts.add(workout2);
-        workouts.add(workout3);
-        workouts.add(workout4);
-        workouts.add(workout5);
-    }
-
-    public void addWorkout(String title, List<Exercise> exercises){
-        Workout workout = new Workout(title, exercises);
-    }
+    public void addWorkout(Workout workout) {
+         workouts.add(workout);
+     }
 
 
     public List<Workout> getWorkouts() {
         System.out.println("lista acessada");
         return workouts;
     }
+
+
 }

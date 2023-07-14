@@ -8,7 +8,7 @@ import java.util.ArrayList;
 @RequestMapping("/cliente")
 public class ClienteController {
 
-    private static ClienteDAO clienteDAO = new ClienteDAO();
+/*    private static ClienteDAO clienteDAO = new ClienteDAO();
 
     //alencar - USER
     @GetMapping("/cliente")
@@ -42,6 +42,6 @@ public class ClienteController {
         }else{
             return null;
         }
-    }
+    }*/
 
 }

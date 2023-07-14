@@ -5,14 +5,14 @@ import br.ufsm.csi.poow2.spring_rest_security.model.Exercise;
 import br.ufsm.csi.poow2.spring_rest_security.model.Workout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/workout")
+@CrossOrigin("*")
 public class WorkoutControllerImpl implements WorkoutController {
     private static final Logger logger = LoggerFactory.getLogger(WorkoutControllerImpl.class);
     private final WorkoutDAO workoutDAO;
@@ -24,16 +24,17 @@ public class WorkoutControllerImpl implements WorkoutController {
     }
 
     @Override
-    @GetMapping("/workouts/list")
+    @GetMapping("/list")
     public List<Workout> listWorkouts() {
         logger.info("Accessed /workout/workouts endpoint");
         return workoutDAO.getWorkouts();
     }
 
+
     @Override
-    @PostMapping("/workout/save")
-    public void addWorkout(String title, List<Exercise> exercises) {
-        Workout workout = new Workout(title, exercises);
+    @PostMapping("/save")
+    public void addWorkout(@RequestBody Workout workout) {
+        workoutDAO.addWorkout(workout);
     }
 
     public void registerLogObserver(LogObserver observer) {

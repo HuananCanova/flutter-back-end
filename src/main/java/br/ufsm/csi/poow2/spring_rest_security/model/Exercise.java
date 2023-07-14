@@ -5,16 +5,19 @@ public class Exercise {
     private int id;
     private String name;
     private String category;
-    boolean isSelected;
+    private boolean isSelected;
 
-    public Exercise(String name, String category) {
+    public Exercise() {
+    }
+
+    public Exercise(int id, String name, String category) {
+        this.id = id;
         this.name = name;
         this.category = category;
         this.isSelected = false;
     }
 
-    public Exercise(int id, String name, String category) {
-        this.id = id;
+    public Exercise(String name, String category) {
         this.name = name;
         this.category = category;
         this.isSelected = false;

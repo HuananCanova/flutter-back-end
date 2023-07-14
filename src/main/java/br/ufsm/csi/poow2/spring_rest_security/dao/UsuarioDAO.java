@@ -3,7 +3,13 @@ package br.ufsm.csi.poow2.spring_rest_security.dao;
 import br.ufsm.csi.poow2.spring_rest_security.model.Usuario;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UsuarioDAO {
+
+    private List<Usuario> users = new ArrayList<>();
+
 
     public Usuario getUsuario(String login){
         //fez consulta no BD e trouxe esse usuario com esses valores
