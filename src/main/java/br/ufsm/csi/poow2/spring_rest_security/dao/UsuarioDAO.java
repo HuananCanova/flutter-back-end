@@ -7,9 +7,9 @@ public class UsuarioDAO {
 
     public Usuario getUsuario(String login){
         //fez consulta no BD e trouxe esse usuario com esses valores
-        if(login.equals("hu@teste")){
+        if(login.equals("hu@")){
 
-            return new Usuario("hu@teste",
+            return new Usuario("hu@",
                     new BCryptPasswordEncoder().encode("123"), "USER");
 
         }if(login.equals("pietra@teste")){
@@ -21,5 +21,4 @@ public class UsuarioDAO {
             return null;
         }
     }
-
 }

@@ -1,5 +1,6 @@
 package br.ufsm.csi.poow2.spring_rest_security.controller;
 
+import br.ufsm.csi.poow2.spring_rest_security.model.Exercise;
 import br.ufsm.csi.poow2.spring_rest_security.model.Workout;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,4 +14,5 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public interface WorkoutController {
     List<Workout> listWorkouts();
+    void addWorkout(String title, List<Exercise> exercises);
 }

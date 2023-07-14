@@ -29,6 +29,11 @@ public class WorkoutDAO {
         workouts.add(workout5);
     }
 
+    public void addWorkout(String title, List<Exercise> exercises){
+        Workout workout = new Workout(title, exercises);
+    }
+
+
     public List<Workout> getWorkouts() {
         System.out.println("lista acessada");
         return workouts;

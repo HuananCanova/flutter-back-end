@@ -1,7 +1,5 @@
 package br.ufsm.csi.poow2.spring_rest_security.controller;
 
-import br.ufsm.csi.poow2.spring_rest_security.dao.ClienteDAO;
-import br.ufsm.csi.poow2.spring_rest_security.model.Cliente;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
